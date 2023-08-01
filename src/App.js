@@ -42,15 +42,15 @@ export default function App() {
               <Link to="/">HOME</Link>
           </li>
           <li>
-              <Link to="/myitems">MY ITEMS</Link>
+              <Link to="/items">MY ITEMS</Link>
           </li>
           <li>
               <Link to="/itemform">ADD NEW ITEM</Link>
           </li>
         </ul>
         <Switch>
-          <Route path="/myitems">
-            <MyItems myItems={myItems}/>
+          <Route path="/items">
+            <Items items={myItems}/>
           </Route>
           <Route path="/itemform">
             <Form/>
@@ -68,8 +68,53 @@ function Home() {
   return <h1>Home</h1>
 }
 
-function MyItems({ myItems }) {
-  return <h1>My Items</h1>
+function Items({ items }) {
+  const match = useRouteMatch();
+  const findItemById = (id) =>
+    items.filter((item) => item.id == id)[0];
+  
+  return (
+    <div>
+      <h1>My Items</h1>
+      <ul>
+        {items.map((item, index) => {
+          return (
+            <li key={index}>
+              <Link to={`${match.url}/${item.id}`}>
+                {item.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      <Switch>
+        <Route
+          path={`${match.path}/:itemId`}
+          render={(props) => (
+            <Item
+              {...props}
+              data={findItemById(props.match.params.itemId)}
+            />
+          )}
+        />
+        <Route path={match.path}>
+            <h3>Select an item</h3>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+function Item(props) {
+  const { data } = props;
+  return (
+    <div>
+      <h3>{data.name}</h3>
+      <h4>Price: {data.price}</h4>
+      <h4>Condition: {data.condition}</h4>
+      <h4>Location: {data.location}</h4>
+    </div>
+  )
 }
 
 function Form() {
