@@ -1,11 +1,43 @@
-export default function Item(props) {
-    const { data } = props;
+import React from'react';
+import { NewReviewForm } from './NewReviewForm';
+
+function Item(props)  {
+    console.log('item component')
+    console.log(props)
+    const { item , updateItem } = props;
+    
+    const deleteReview = (reviewId) => {
+        const updatedItem = {
+            ...item,
+            reviews: item.reviews.filter((review) => review.id !== reviewId)
+        };
+        props.updatesItem(updatedItem);
+    }
+
+    const addNewReview = (review) => updateItem({...item, reviews: [...item.reviews, review]});
+
+    const reviews = () => (
+        <ul>
+            {item.reviews.map((review, index) => (
+                <li key={index}>
+                    <label>{review}</label>
+                    <button onClick={(e) => deleteReview(review.id)}>Delete Review</button>
+                </li>
+            ))}
+        </ul>
+    );
+
     return (
-      <div>
-        <h3>{data.name}</h3>
-        <h4>Price: {data.price}</h4>
-        <h4>Condition: {data.condition}</h4>
-        <h4>Location: {data.location}</h4>
-      </div>
+        <div>
+            <h1>{item.name}</h1>
+            <h4>{item.price}</h4>
+            {
+                reviews({ reviews, itemId: item.id, deleteReview})
+            }
+            <NewReviewForm />
+        </div>
     )
-  }
+
+}
+
+export default Item;
