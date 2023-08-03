@@ -1,8 +1,9 @@
 import React from 'react';
-import { myItems } from './Components/ItemsData';
+
+import { itemsApi } from './api/ItemsApi';
 import Home from './Components/Home';
 import Items from './Components/Items';
-import ItemForm from './Components/ItemForm';
+import { NewReviewForm } from './Components/NewReviewForm';
 
 import { 
   BrowserRouter as Router,
@@ -12,15 +13,24 @@ import {
   useRouteMatch
 } from 'react-router-dom';
 
+class App extends React.Component {
+  state = {
+    items: []
+};
 
-export default class App extends React.Component {
+componentDidMount() {
+    this.fetchItems();
+}
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      items: myItems || []
-    }
-  }
+fetchItems = async () => {
+    const items = await itemsApi.get();
+    this.setState({ items });
+}
+
+updatesItem = async (updatedItem) => {
+    await itemsApi.put(updatedItem);
+    this.fetchItems();
+};
 
   render() {
   
@@ -36,15 +46,15 @@ export default class App extends React.Component {
                 <Link to="/items">MY ITEMS</Link>
               </li>
               <li>
-                <Link to="/itemform">ADD NEW ITEM</Link>
+                <Link to="/newitemform">ADD NEW ITEM</Link>
               </li>
             </ul>
             <Switch>
               <Route path="/items">
-                <Items items={this.state.items}/>
+                <Items items={this.state.items} updatesItem={this.updatesItem}/>
               </Route>
-              <Route path="/itemform">
-                <ItemForm/>
+              <Route path="/newitemform">
+                <NewReviewForm/>
               </Route>
               <Route path="/">
                 <Home/>
@@ -55,4 +65,6 @@ export default class App extends React.Component {
       );
   } 
 }
+
+export default App;
 
