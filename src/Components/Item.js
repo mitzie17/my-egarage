@@ -9,7 +9,7 @@ function Item(props)  {
     const deleteReview = (reviewId) => {
         const updatedItem = {
             ...item,
-            reviews: item.reviews.filter((review) => review.id !== reviewId)
+            reviews: item.reviews.filter((review) => review !== reviewId)
         };
         updateItem(updatedItem);
     }
@@ -21,7 +21,7 @@ function Item(props)  {
             {item.reviews.map((review, index) => (
                 <li key={index}>
                     <label>{review}</label>
-                    <button onClick={(e) => deleteReview(review.id)}>Delete Review</button>
+                    <button onClick={(e) => deleteReview(review)}>Delete Review</button>
                 </li>
             ))}
         </ul>
@@ -34,7 +34,7 @@ function Item(props)  {
             {
                 reviews({ reviews, itemId: item.id, deleteReview})
             }
-            <NewReviewForm />
+            <NewReviewForm addNewReview={addNewReview}/>
         </div>
     )
 
