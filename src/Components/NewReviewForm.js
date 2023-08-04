@@ -7,6 +7,7 @@ export const NewReviewForm = (props) => {
         e.preventDefault();
         if (review) {
             props.addNewReview(review)
+            setReview('');
         } else {
             console.log('invalid input')
         }
@@ -16,7 +17,7 @@ export const NewReviewForm = (props) => {
         <div>
             <h3>Add new review</h3>
             <form onSubmit={onSubmit}>
-                <input type='text' placeholder='type your review' value='review' onChange={(e) => setReview(e.target.value)}/>
+                <input type='text' placeholder='type your review' value={review} onChange={(e) => setReview(e.target.value)}/>
                 <button type='submit'>Submit</button>
             </form>
         </div>
