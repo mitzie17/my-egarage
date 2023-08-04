@@ -13,7 +13,7 @@ class ItemsApi {
 
     put = async (item) => {
         try {
-            const resp = await fetch(`${ITEMS_API}/${items.id}`, {
+            const resp = await fetch(`${ITEMS_API}/${item.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
