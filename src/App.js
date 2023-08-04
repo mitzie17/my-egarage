@@ -27,7 +27,7 @@ fetchItems = async () => {
     this.setState({ items });
 }
 
-updatesItem = async (updatedItem) => {
+updateItem = async (updatedItem) => {
     await itemsApi.put(updatedItem);
     this.fetchItems();
 };
@@ -51,7 +51,7 @@ updatesItem = async (updatedItem) => {
             </ul>
             <Switch>
               <Route path="/items">
-                <Items items={this.state.items} updatesItem={this.updatesItem}/>
+                <Items items={this.state.items} updateItem={this.updateItem}/>
               </Route>
               <Route path="/newitemform">
                 <NewReviewForm/>
