@@ -13,7 +13,7 @@ import {
 function Items(props){
 console.log('items component')
 console.log(props)
-    const { items } = props;
+    const { items, updateItem } = props;
     const match = useRouteMatch();
     const findItemById = (id) =>
         items.filter((item) => item.id == id)[0];
@@ -37,7 +37,7 @@ console.log(props)
                 path={`${match.path}/:itemId`}
                 render={(props) => (
                     <Item 
-                    {...props} item={findItemById(props.match.params.itemId)} updatesItem={props.updatesItem}
+                    {...props} item={findItemById(props.match.params.itemId)} updateItem={updateItem}
                     />
                 )}
             />
