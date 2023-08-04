@@ -4,14 +4,14 @@ import { NewReviewForm } from './NewReviewForm';
 function Item(props)  {
     console.log('item component')
     console.log(props)
-    const { item , updateItem } = props;
+    const { item, updateItem } = props;
     
     const deleteReview = (reviewId) => {
         const updatedItem = {
             ...item,
             reviews: item.reviews.filter((review) => review.id !== reviewId)
         };
-        props.updatesItem(updatedItem);
+        updateItem(updatedItem);
     }
 
     const addNewReview = (review) => updateItem({...item, reviews: [...item.reviews, review]});
