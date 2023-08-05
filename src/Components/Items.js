@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import { 
     BrowserRouter as Router,
     Switch,
@@ -24,6 +25,7 @@ function Items(props){
       deleteItem(itemId);
     }
 
+
         return(
             <div>
          <h1>My Items</h1>
@@ -34,7 +36,7 @@ function Items(props){
                 <Link to={`${match.url}/${item.id}`}>
                   {item.name}
                 </Link>
-                <button onClick={(e) => removeItem(item.id)}>Delete</button>
+                <Button variant="danger" size="sm" onClick={(e) => removeItem(item.id)}>Delete</Button>
               </Alert>
             );
           })}
