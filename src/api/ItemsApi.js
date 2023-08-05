@@ -35,7 +35,8 @@ class ItemsApi {
                 },
                 body: JSON.stringify({
                     'name': item.name,
-                    'price': item.price
+                    'price': item.price,
+                    'reviews': [...item.reviews, item.review]
                 })
             });
             const data = await response.json();
