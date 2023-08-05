@@ -1,9 +1,11 @@
 import React from'react';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
 import { NewReviewForm } from './NewReviewForm';
 
 function Item(props)  {
-    console.log('item component')
-    console.log(props)
+    //console.log('item component')
+    //console.log(props)
     const { item, updateItem } = props;
     
     const deleteReview = (reviewId) => {
@@ -27,16 +29,24 @@ function Item(props)  {
         </ul>
     );
 
-    return (
+    return item == undefined ? <h1>404 Item not found</h1> : (
         <div>
-            <h1>{item.name}</h1>
-            <h4>{item.price}</h4>
-            {
-                reviews({ reviews, itemId: item.id, deleteReview})
-            }
-            <NewReviewForm addNewReview={addNewReview}/>
+            <Card>
+                <Card.Header>{item.name}</Card.Header>
+                <Card.Body>
+                    <Card.Subtitle>{item.price}</Card.Subtitle>
+                    
+                    {
+                        reviews({ reviews, itemId: item.id, deleteReview})
+                    }
+                    
+                </Card.Body>
+                <Card.Footer>
+                    <NewReviewForm addNewReview={addNewReview}/>
+                </Card.Footer>
+            </Card>
         </div>
-    )
+    );
 
 }
 
