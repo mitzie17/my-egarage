@@ -25,6 +25,25 @@ class ItemsApi {
             console.log('Oh no! Looks like the item couldnt be updated.', e);
         }
     }
+
+    post = async (item) => {
+        try {
+            const resp = await fetch(`${ITEMS_API}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'name': item.name,
+                    'price': item.price
+                })
+            });
+            const data = await response.json();
+            console.log(data)
+        } catch(e) {
+            console.log('Oh no! Item counldnt be created.')
+        }
+    }
     
 }
 
