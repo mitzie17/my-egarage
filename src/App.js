@@ -38,6 +38,11 @@ createItem = async (newItem) => {
   this.fetchItems();
 }
 
+deleteItem = async (itemId) => {
+  await itemsApi.delete(itemId);
+  this.fetchItems();
+}
+
   render() {
   
       return (
@@ -57,7 +62,7 @@ createItem = async (newItem) => {
             </ul>
             <Switch>
               <Route path="/items">
-                <Items items={this.state.items} updateItem={this.updateItem}/>
+                <Items items={this.state.items} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
               </Route>
               <Route path="/newitemform">
                 <ItemForm createItem={this.createItem}/>
