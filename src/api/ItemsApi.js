@@ -45,6 +45,17 @@ class ItemsApi {
             console.log('Oh no! Item counldnt be created.')
         }
     }
+
+    delete = async (itemId) => {
+        try {
+            const resp = await fetch(`${ITEMS_API}/${itemId}`, {
+                method: 'DELETE',
+            })
+            const data = await response.json();
+        } catch(e) {
+            console.log('Oh no! Item was not deleteed.')
+        }
+    }
     
 }
 
