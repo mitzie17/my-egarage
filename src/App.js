@@ -1,4 +1,10 @@
 import React from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 
 import { itemsApi } from './api/ItemsApi';
 import Home from './Components/Home';
@@ -46,20 +52,21 @@ deleteItem = async (itemId) => {
   render() {
   
       return (
-
-        < Router>
+        <Container>
+        <Router>
           <div>
-           <ul>
-              <li>
-                <Link to="/">HOME</Link>
-              </li>
-              <li>
-                <Link to="/items">MY ITEMS</Link>
-              </li>
-              <li>
-                <Link to="/newitemform">ADD NEW ITEM</Link>
-              </li>
-            </ul>
+            <ButtonGroup>
+              <Button variant="outline-secondary">
+              <Link to="/">HOME</Link>
+              </Button>
+              <Button variant="outline-secondary">
+              <Link to="/items">MY ITEMS</Link>
+              </Button>
+              <Button variant="outline-secondary">
+              <Link to="/newitemform">ADD NEW ITEM</Link>
+              </Button>
+            </ButtonGroup>
+           
             <Switch>
               <Route path="/items">
                 <Items items={this.state.items} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
@@ -73,6 +80,7 @@ deleteItem = async (itemId) => {
             </Switch>
           </div>
         </Router>
+        </Container>
       );
   } 
 }
