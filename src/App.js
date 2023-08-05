@@ -3,7 +3,7 @@ import React from 'react';
 import { itemsApi } from './api/ItemsApi';
 import Home from './Components/Home';
 import Items from './Components/Items';
-import { NewReviewForm } from './Components/NewReviewForm';
+import {ItemForm} from './Components/ItemForm';
 
 import { 
   BrowserRouter as Router,
@@ -32,6 +32,12 @@ updateItem = async (updatedItem) => {
     this.fetchItems();
 };
 
+createItem = async (newItem) => {
+  console.log(newItem)
+  await itemsApi.post(newItem);
+  this.fetchItems();
+}
+
   render() {
   
       return (
@@ -54,7 +60,7 @@ updateItem = async (updatedItem) => {
                 <Items items={this.state.items} updateItem={this.updateItem}/>
               </Route>
               <Route path="/newitemform">
-                <NewReviewForm/>
+                <ItemForm createItem={this.createItem}/>
               </Route>
               <Route path="/">
                 <Home/>
