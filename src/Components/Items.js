@@ -13,10 +13,14 @@ import {
 function Items(props){
 console.log('items component')
 console.log(props)
-    const { items, updateItem } = props;
+    const { items, updateItem, deleteItem } = props;
     const match = useRouteMatch();
     const findItemById = (id) =>
         items.filter((item) => item.id == id)[0];
+
+    const removeItem = (itemId) => {
+      deleteItem(itemId);
+    }
 
         return(
             <div>
@@ -28,6 +32,7 @@ console.log(props)
                 <Link to={`${match.url}/${item.id}`}>
                   {item.name}
                 </Link>
+                <button onClick={(e) => removeItem(item.id)}>Delete</button>
               </li>
             );
           })}
