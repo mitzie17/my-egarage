@@ -35,6 +35,7 @@ class ItemsApi {
         },
         body: JSON.stringify({
           name: item.name,
+          brand: item.brand,
           price: item.price,
           reviews: [...item.reviews, item.review],
         }),

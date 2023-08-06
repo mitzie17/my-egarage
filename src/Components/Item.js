@@ -26,7 +26,7 @@ function Item(props) {
     };
 
     console.log(updatedItem);
-
+    console.log(newReview);
     updatedItem = {
       ...updatedItem,
       reviews: [...updatedItem.reviews, newReview],
@@ -100,6 +100,7 @@ function Item(props) {
       <Card>
         <Card.Header>{item.name}</Card.Header>
         <Card.Body>
+          <Card.Text>Brand: {item.brand}</Card.Text>
           <Card.Text>Price: ${item.price}</Card.Text>
           <Card.Subtitle>Reviews</Card.Subtitle>
 

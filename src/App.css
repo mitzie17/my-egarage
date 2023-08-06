@@ -1,3 +1,19 @@
-body{
-   color: navy;
+body {
+  color: navy;
+}
+
+.items-heading {
+  color: white;
+}
+
+.form-heading {
+  color: white;
+}
+
+.formLabels {
+  color: white;
+}
+
+.home {
+  color: white;
 }
