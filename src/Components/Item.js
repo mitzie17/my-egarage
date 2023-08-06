@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import { NewReviewForm } from "./NewReviewForm";
@@ -52,7 +53,12 @@ function Item(props) {
       {item.reviews.map((review, index) => (
         <li key={index}>
           <label>{review}</label>
-          <Button variant="success" size="sm" onClick={handleShow}>
+          <Button
+            className="reviewButtons"
+            variant="success"
+            size="sm"
+            onClick={handleShow}
+          >
             Edit
           </Button>
 
@@ -82,6 +88,7 @@ function Item(props) {
             </Modal.Footer>
           </Modal>
           <Button
+            className="reviewButtons"
             variant="danger"
             size="sm"
             onClick={(e) => deleteReview(review)}

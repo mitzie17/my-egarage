@@ -34,7 +34,7 @@ export const ItemForm = (props) => {
 
   return (
     <div>
-      <h3 className="form-heading">Add new item</h3>
+      <h3 className="form-heading">Create new item</h3>
       {/* <form onSubmit={onSubmit}>
         <input
           type="text"

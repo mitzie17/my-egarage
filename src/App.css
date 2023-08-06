@@ -3,17 +3,41 @@ body {
 }
 
 .items-heading {
-  color: white;
+  color: black;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .form-heading {
-  color: white;
+  color: black;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .formLabels {
-  color: white;
+  color: black;
 }
 
 .home {
-  color: white;
+  color: black;
+}
+
+.bg-body-tertiary {
+  border-style: solid;
+  border-color: black;
+}
+
+.navbarBrand {
+  padding-left: 20px;
+}
+
+Form {
+  border-style: solid;
+  border-color: darkgray;
+  padding: 10px;
+}
+
+.reviewButtons {
+  float: right;
+  margin: 5px;
 }

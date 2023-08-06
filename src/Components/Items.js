@@ -30,10 +30,11 @@ function Items(props) {
 
       {items.map((item, index) => {
         return (
-          <Alert key={index} variant="primary">
+          <Alert key={index} variant="secondary">
             <Link to={`${match.url}/${item.id}`}>{item.name}</Link>
             <h6>{item.brand}</h6>
             <Button
+              className="deleteBtn"
               variant="danger"
               size="sm"
               onClick={(e) => removeItem(item.id)}
