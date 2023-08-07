@@ -14,19 +14,10 @@ export const NewReviewForm = (props) => {
       console.log("invalid input");
     }
   };
-
+  // Form to add a review is rendered.
   return (
     <div>
       <h5>Add a review</h5>
-      {/* <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="type your review"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form> */}
 
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">

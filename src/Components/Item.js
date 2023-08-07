@@ -2,41 +2,38 @@ import React, { useState } from "react";
 
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
-import { NewReviewForm } from "./NewReviewForm";
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { NewReviewForm } from "./NewReviewForm";
 
 function Item(props) {
-  //console.log('item component')
-  //console.log(props)
+  // The Item functional component receives an item and the updateItem method as props from the Items component.
   const { item, updateItem } = props;
-
+  // These variables and functions allow the modal to open or close based on a user's click
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // This meethod creates a new review and is passed down to the NewReviewForm component as props.
+  const addNewReview = (review) =>
+    updateItem({ ...item, reviews: [...item.reviews, review] });
+
+  // Variables used to "edit" a review. First removes a review and "replaces" it by adding the new review.
   const [newReview, setNewReview] = useState("");
 
-  const editReview = (updatedReview) => {
-    console.log(updatedReview);
+  const editReview = (reviewToUpdate) => {
     let updatedItem = {
       ...item,
-      reviews: item.reviews.filter((review) => review !== updatedReview),
+      reviews: item.reviews.filter((review) => review !== reviewToUpdate),
     };
-
-    console.log(updatedItem);
-    console.log(newReview);
     updatedItem = {
       ...updatedItem,
       reviews: [...updatedItem.reviews, newReview],
     };
-
-    //logic for your fetch
+    // Calls the updateItem in the App component to make a put request in the api.
     updateItem(updatedItem);
   };
-
+  // This method takes in a review id and deletes the review object.
   const deleteReview = (reviewId) => {
     const updatedItem = {
       ...item,
@@ -44,10 +41,7 @@ function Item(props) {
     };
     updateItem(updatedItem);
   };
-
-  const addNewReview = (review) =>
-    updateItem({ ...item, reviews: [...item.reviews, review] });
-
+  // Logic for displaying all reviews of an item and opeining/closing modal to display form to edit a review.
   const reviews = () => (
     <ul>
       {item.reviews.map((review, index) => (
@@ -99,7 +93,7 @@ function Item(props) {
       ))}
     </ul>
   );
-
+  // Here a 404 message is display if item is not found otherwise an item's attributes and the form to add a review is rendered.
   return item == undefined ? (
     <h1>404 Item not found</h1>
   ) : (

@@ -41,3 +41,9 @@ Form {
   float: right;
   margin: 5px;
 }
+
+.img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}

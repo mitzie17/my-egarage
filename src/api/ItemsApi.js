@@ -1,6 +1,7 @@
 const ITEMS_API = "https://64caa1a2700d50e3c705235a.mockapi.io/items";
 
 class ItemsApi {
+  // Api call to get all items
   get = async () => {
     try {
       const resp = await fetch(ITEMS_API);
@@ -10,7 +11,7 @@ class ItemsApi {
       console.log("Oh no! Something went wrong in fetchItems.", e);
     }
   };
-
+  // Api call to update an item
   put = async (item) => {
     try {
       const resp = await fetch(`${ITEMS_API}/${item.id}`, {
@@ -25,7 +26,7 @@ class ItemsApi {
       console.log("Oh no! Looks like the item couldnt be updated.", e);
     }
   };
-
+  // Api call to create a new item
   post = async (item) => {
     try {
       const resp = await fetch(`${ITEMS_API}`, {
@@ -46,7 +47,7 @@ class ItemsApi {
       console.log("Oh no! Item counldnt be created.");
     }
   };
-
+  // Api call to delete an item
   delete = async (itemId) => {
     try {
       const resp = await fetch(`${ITEMS_API}/${itemId}`, {

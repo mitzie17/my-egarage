@@ -11,8 +11,6 @@ export const ItemForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //console.log(name);
-    //console.log(price);
     const newItem = {
       name: name,
       brand: brand,
@@ -24,35 +22,11 @@ export const ItemForm = (props) => {
     setPrice("");
     setReview("");
     props.createItem(newItem);
-    // if (item) {
-    //     props.addNewItem(item)
-    //     setItem('');
-    // } else {
-    //     console.log('invalid input')
-    // }
   };
-
+  // Form to create a new item is rendered.
   return (
     <div>
       <h3 className="form-heading">Create new item</h3>
-      {/* <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="item name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="price"
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="type your review"
-          onChange={(e) => setReview(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form> */}
 
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="name">

@@ -1,28 +1,14 @@
 import React from "react";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Alert from "react-bootstrap/Alert";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-
+import Container from "react-bootstrap/Container";
 import { itemsApi } from "./api/ItemsApi";
 import Home from "./Components/Home";
 import Items from "./Components/Items";
 import { ItemForm } from "./Components/ItemForm";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
@@ -33,19 +19,20 @@ class App extends React.Component {
     this.fetchItems();
   }
 
+  // Method to render all items
   fetchItems = async () => {
     const items = await itemsApi.get();
     this.setState({ items });
   };
 
-  updateItem = async (updatedItem) => {
-    await itemsApi.put(updatedItem);
+  // Methods to create, update, and delete a specific item
+  createItem = async (newItem) => {
+    await itemsApi.post(newItem);
     this.fetchItems();
   };
 
-  createItem = async (newItem) => {
-    console.log(newItem);
-    await itemsApi.post(newItem);
+  updateItem = async (updatedItem) => {
+    await itemsApi.put(updatedItem);
     this.fetchItems();
   };
 
@@ -54,6 +41,7 @@ class App extends React.Component {
     this.fetchItems();
   };
 
+  // Renders navbar and passes down props to the Items and ItemForm components
   render() {
     return (
       <div>
@@ -63,17 +51,6 @@ class App extends React.Component {
           bg="dark"
           data-bs-theme="dark"
         >
-          {/* <ButtonGroup>
-                <Button variant="outline-secondary">
-                  <Link to="/">HOME</Link>
-                </Button>
-                <Button variant="outline-secondary">
-                  <Link to="/items">MY ITEMS</Link>
-                </Button>
-                <Button variant="outline-secondary">
-                  <Link to="/newitemform">ADD NEW ITEM</Link>
-                </Button>
-              </ButtonGroup> */}
           <Navbar.Brand className="navbarBrand" href="/">
             My eGarage
           </Navbar.Brand>
