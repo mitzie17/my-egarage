@@ -37,12 +37,13 @@ function Item(props) {
     let findReview = itemReviews[index];
     let findIndex = itemReviews.indexOf(findReview);
     console.log(findIndex);
-    let updatedReviews = itemReviews.splice(findIndex, 1, newReview);
-    console.log(updatedReviews);
+    itemReviews.splice(index, 1, newReview);
+    console.log(itemReviews);
     const updatedItem = {
       ...item,
-      reviews: updatedReviews,
+      reviews: itemReviews,
     };
+    console.log(updatedItem);
     // Calls the updateItem in the App component to make a put request in the api.
     updateItem(updatedItem);
   };
