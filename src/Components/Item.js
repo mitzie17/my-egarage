@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { NewReviewForm } from "./NewReviewForm";
+import Reviews from "./Reviews";
 
 function Item(props) {
   // The Item functional component receives an item and the updateItem method as props from the Items component.
@@ -19,16 +18,30 @@ function Item(props) {
     updateItem({ ...item, reviews: [...item.reviews, review] });
 
   // Variables used to "edit" a review. First removes a review and "replaces" it by adding the new review.
+  //const [editFormReview, setFormReview] = useState("");
   const [newReview, setNewReview] = useState("");
 
-  const editReview = (reviewToUpdate) => {
-    let updatedItem = {
+  // const handleEditOnChange = (e) => {
+  //   const fieldName = e.target.getAttribute("name");
+  //   const fieldValue = e.target.value;
+  //   const newReviewData = { ...editFormReview };
+  //   newReviewData[fieldName] = fieldValue;
+  //   setFormReview(newReviewData);
+  // };
+
+  const editReview = (newReview, index) => {
+    console.log(newReview);
+    console.log(index);
+    console.log(item.reviews);
+    let itemReviews = item.reviews;
+    let findReview = itemReviews[index];
+    let findIndex = itemReviews.indexOf(findReview);
+    console.log(findIndex);
+    let updatedReviews = itemReviews.splice(findIndex, 1, newReview);
+    console.log(updatedReviews);
+    const updatedItem = {
       ...item,
-      reviews: item.reviews.filter((review) => review !== reviewToUpdate),
-    };
-    updatedItem = {
-      ...updatedItem,
-      reviews: [...updatedItem.reviews, newReview],
+      reviews: updatedReviews,
     };
     // Calls the updateItem in the App component to make a put request in the api.
     updateItem(updatedItem);
@@ -41,58 +54,7 @@ function Item(props) {
     };
     updateItem(updatedItem);
   };
-  // Logic for displaying all reviews of an item and opeining/closing modal to display form to edit a review.
-  const reviews = () => (
-    <ul>
-      {item.reviews.map((review, index) => (
-        <li key={index}>
-          <label>{review}</label>
-          <Button
-            className="reviewButtons"
-            variant="success"
-            size="sm"
-            onClick={handleShow}
-          >
-            Edit
-          </Button>
 
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit Review</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <form>
-                <label>Enter New Review</label>
-                <input onChange={(e) => setNewReview(e.target.value)} />
-              </form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  handleClose();
-                  editReview(review);
-                }}
-              >
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          <Button
-            className="reviewButtons"
-            variant="danger"
-            size="sm"
-            onClick={(e) => deleteReview(review)}
-          >
-            Delete
-          </Button>
-        </li>
-      ))}
-    </ul>
-  );
   // Here a 404 message is display if item is not found otherwise an item's attributes and the form to add a review is rendered.
   return item == undefined ? (
     <h1>404 Item not found</h1>
@@ -104,8 +66,11 @@ function Item(props) {
           <Card.Text>Brand: {item.brand}</Card.Text>
           <Card.Text>Price: ${item.price}</Card.Text>
           <Card.Subtitle>Reviews</Card.Subtitle>
-
-          {reviews({ reviews, itemId: item.id, deleteReview })}
+          <Reviews
+            reviews={item.reviews}
+            editReview={editReview}
+            deleteReview={deleteReview}
+          />
         </Card.Body>
         <Card.Footer>
           <NewReviewForm addNewReview={addNewReview} />
