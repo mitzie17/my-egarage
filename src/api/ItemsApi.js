@@ -13,6 +13,7 @@ class ItemsApi {
   };
   // Api call to update an item
   put = async (item) => {
+    console.log(item);
     try {
       const resp = await fetch(`${ITEMS_API}/${item.id}`, {
         method: "PUT",
@@ -38,7 +39,7 @@ class ItemsApi {
           name: item.name,
           brand: item.brand,
           price: item.price,
-          reviews: [...item.reviews, item.review],
+          reviews: item.reviews,
         }),
       });
       const data = await response.json();
