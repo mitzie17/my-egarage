@@ -10,16 +10,20 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import Item from "./Item";
+
 // The Itmes functional component receives the items array, the updateItem, and the deleteItem methods as props from the App component.
 function Items(props) {
   const { items, updateItem, deleteItem } = props;
+
   // Saves useRouteMatch to a variable match to create link based on an item's id
   const match = useRouteMatch();
   const findItemById = (id) => items.filter((item) => item.id == id)[0];
+
   // Method called by delete button to remove an item. Calls the deleteItem method from the App component
   const removeItem = (itemId) => {
     deleteItem(itemId);
   };
+
   // Component returns links and a delete button for each of the items in the state
   // It also passes down the updateItem  method (from the App component) and a specific item as props to the Item component.
   return (
