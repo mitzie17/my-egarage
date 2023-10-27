@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
@@ -8,45 +8,31 @@ import Reviews from "./Reviews";
 function Item(props) {
   // The Item functional component receives an item and the updateItem method as props from the Items component.
   const { item, updateItem } = props;
-  // These variables and functions allow the modal to open or close based on a user's click
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  // This meethod creates a new review and is passed down to the NewReviewForm component as props.
+  // Function creates a new review and is passed down to the NewReviewForm component as props.
   const addNewReview = (review) =>
     updateItem({ ...item, reviews: [...item.reviews, review] });
 
-  // Variables used to "edit" a review. First removes a review and "replaces" it by adding the new review.
-  //const [editFormReview, setFormReview] = useState("");
-  const [newReview, setNewReview] = useState("");
-
-  // const handleEditOnChange = (e) => {
-  //   const fieldName = e.target.getAttribute("name");
-  //   const fieldValue = e.target.value;
-  //   const newReviewData = { ...editFormReview };
-  //   newReviewData[fieldName] = fieldValue;
-  //   setFormReview(newReviewData);
-  // };
-
+  // Function updates an existing review by accepting the new review and the index of old review as parameters.
   const editReview = (newReview, index) => {
-    console.log(newReview);
-    console.log(index);
-    console.log(item.reviews);
+    // Stores all of an items' reviews in the variable itemReviews
     let itemReviews = item.reviews;
-    let findReview = itemReviews[index];
-    let findIndex = itemReviews.indexOf(findReview);
-    console.log(findIndex);
+    // The splice method is called on the itemReviews array to remove old review and replace it with the new review.
+    // The first argument in the splice method is the index of the value to be removed. The second argument is how many
+    // values we want to remove. The last argument is the value to be added.
+    // REMINDER: calling itemReviews after applying the splice method does change the original array, therefore the itemsReview
+    // array should return an array of reviews with the new review in the same index position as the old review.
     itemReviews.splice(index, 1, newReview);
-    console.log(itemReviews);
+    // Variable stores an item object with the reviews property being updated by assigning it the updated itemsReviews
+    // array containing the edited review
     const updatedItem = {
       ...item,
       reviews: itemReviews,
     };
-    console.log(updatedItem);
-    // Calls the updateItem in the App component to make a put request in the api.
+    // Passes the updatedItem object and calls the updateItem funtion from the App component to make a put request in the api.
     updateItem(updatedItem);
   };
+
   // This method takes in a review id and deletes the review object.
   const deleteReview = (reviewId) => {
     const updatedItem = {
