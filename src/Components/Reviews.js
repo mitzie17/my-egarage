@@ -1,55 +1,63 @@
 import React, { useState } from "react";
 
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Card from "react-bootstrap/Card";
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { NewReviewForm } from "./NewReviewForm";
+
 import { ButtonToolbar } from "react-bootstrap";
 
-// Logic for displaying all reviews of an item and opeining/closing modal to display form to edit a review.
 function Reviews(props) {
+  // Logic for opening the modal and displaying the edit form.
   const [show, setShow] = useState(false);
   const [selectedReviewIndex, setSelectedReviewIndex] = useState(null);
+  const [selectedReview, setSelectedReview] = useState(null);
+
+  // handleShow accepts a review index and a review as parameters and uses them to call the functions setSelectedReviewIndex() and
+  // setSelectedReview() to change the value of their corresponding variables, selectedReviewIndex and selectedReview. Also changes
+  // the value of show to true.
+  const handleShow = (index, review) => {
+    setSelectedReviewIndex(index);
+    setSelectedReview(review);
+    setShow(true);
+  };
+  // Function closes the modal.
   const handleClose = () => setShow(false);
-  const handleShow = (showIndex) => {
-    console.log(showIndex);
-    setSelectedReviewIndex(showIndex);
-    setShow(true);
-  };
 
-  const [editReview, setEditReview] = useState([]);
-  const handleReview = (e) => {
-    e.preventDefault();
-    console.log("after submit new review is");
-    console.log(editReview);
-    props.editReview(editReview, selectedReviewIndex);
-    setShow(true);
-  };
-
+  // Logic for handling the editing of a review.
+  // Function captures the user's input and passes it to the setEditReview() which changes the value of the editReview variable.
   const handleReviewChange = (e) => {
     e.preventDefault();
     setEditReview(e.target.value);
-    console.log("handle review change");
-    console.log(e.target.value);
-    setShow(true);
+  };
+  // The variable editReview and function setEditReview() are declared to update the value of a review.
+  // Function passes the value of editReview, obtained from handleReviewChange(), and selectedReviewIndex, obtained from handleShow(),
+  // to the function editReview received through props.
+  const [editReview, setEditReview] = useState([]);
+  const handleReview = (e) => {
+    e.preventDefault();
+    props.editReview(editReview, selectedReviewIndex);
   };
 
   return (
+    // Here, map over all reviews of current item received through props (line 11).
+    // Both, index and review are passed as arguments to the handleShow function.
+    // Only review is passsed as argument to the deleteReview function.
+    // Modal display edit form, and the defaultValue is set to selectedReview which is the review passed through handleShow.
     <div>
       {props.reviews.map((review, index) => (
         <React.Fragment key={index}>
-          {review}-{index}
+          {review}
           <ButtonToolbar>
             <Button
               index={index}
               className="reviewButtons"
               variant="success"
               size="sm"
-              onClick={() => handleShow(index)}
+              onClick={() => handleShow(index, review)}
             >
-              Edit-{index}
+              Edit review
             </Button>
 
             <Button
@@ -71,21 +79,20 @@ function Reviews(props) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
-              Edit Review-{selectedReviewIndex}
+              Edit Form
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={handleReview}>
               <Form.Group controlId="review">
-                <Form.Label>Edit review</Form.Label>
+                <Form.Label>Edit review:</Form.Label>
                 <Form.Control
                   type="text"
                   name="reviews"
                   required
-                  placeholder="new review"
-                  defaultValue={editReview}
+                  defaultValue={selectedReview}
                   onChange={handleReviewChange}
                 />
               </Form.Group>
@@ -110,77 +117,6 @@ function Reviews(props) {
         </Modal>
       </React.Fragment>
     </div>
-
-    // <div className="review-list">
-    //   {props.reviews.map((review, index) => (
-    //     <div key={index}>
-    //       <label>
-    //         {index}:{review}
-    //       </label>
-    //       <Button
-    //         index={index}
-    //         className="reviewButtons"
-    //         variant="success"
-    //         size="sm"
-    //         onClick={() => handleShow(review, index)}
-    //       >
-    //         Edit{index}
-    //       </Button>
-
-    //       <Button
-    //         className="reviewButtons"
-    //         variant="danger"
-    //         size="sm"
-    //         onClick={(e) => props.deleteReview(review)}
-    //       >
-    //         Delete
-    //       </Button>
-    //     </div>
-    //   ))}
-
-    //   <Modal
-    //     show={show}
-    //     onHide={() => setShow(false)}
-    //     index={props.reviews.indexOf(editReview)}
-    //   >
-    //     <Modal.Header closeButton>
-    //       <Modal.Title>
-    //         Edit Review - {props.reviews.indexOf(editReview)}
-    //       </Modal.Title>
-    //     </Modal.Header>
-    //     <Modal.Body>
-    //       <form>
-    //         <label>Edit Review: {props.reviews.indexOf(editReview)}</label>
-    //         <input
-    //           type="text"
-    //           value={editReview}
-    //           onChange={(e) => {
-    //             console.log(e.target.value);
-    //             setEditReview(e.target.value);
-    //           }}
-    //         />
-    //       </form>
-    //     </Modal.Body>
-    //     <Modal.Footer>
-    //       <Button variant="secondary" onClick={handleClose}>
-    //         Close
-    //       </Button>
-    //       <Button
-    //         //id={id}
-    //         variant="primary"
-    //         onClick={(e) => {
-    //           //console.log(editReview.id);
-    //           props.editReview(editReview, props.reviews.indexOf(editReview));
-    //           handleClose();
-
-    //           console.log(props.reviews.indexOf(editReview));
-    //         }}
-    //       >
-    //         Save Changes
-    //       </Button>
-    //     </Modal.Footer>
-    //   </Modal>
-    // </div>
   );
 }
 
