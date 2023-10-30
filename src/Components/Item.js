@@ -44,7 +44,7 @@ function Item(props) {
 
   // Here a 404 message is display if item is not found otherwise an item's attributes and the form to add a review is rendered.
   return item == undefined ? (
-    <h1>404 Item not found</h1>
+    <h1>404 Item has been deleted or is not found</h1>
   ) : (
     <div>
       <Card>
