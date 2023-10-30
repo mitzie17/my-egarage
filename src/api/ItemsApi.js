@@ -55,8 +55,9 @@ class ItemsApi {
         method: "DELETE",
       });
       const data = await response.json();
+      alert("Item deleted successfully!");
     } catch (e) {
-      console.log("Oh no! Item was not deleteed.");
+      console.log("Oh no! Item was not deleted.");
     }
   };
 }
